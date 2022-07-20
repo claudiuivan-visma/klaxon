@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] || 'postgres://localhost/klaxon_development' %>
+
+test:
+  <<: *default
+  database: klaxon_test
+  username: <%= ENV['PGUSER'] || `whoami` %>
+  password: <%= ENV['PGPASSWORD'] %>
+  host: localhost
+  port: 5432
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
